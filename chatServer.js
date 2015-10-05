@@ -107,7 +107,7 @@ io.sockets.on('connection', function(socket) {
 
     // Welcome message on connection
     socket.emit('connected', 'Welcome to the chat server');
-    logger.emit('newEvent', 'userConnected', {'socket':socket.id});
+    logger.emit('newEvent', 'userConnected', {'socket':socket.id, 'client_address': socket.request.connection.remoteAddress, 'client_port': socket.request.connection.remotePort});
 
     // Store user data in db
     db.hset([socket.id, 'connectionDate', new Date()], redis.print);
@@ -116,7 +116,7 @@ io.sockets.on('connection', function(socket) {
 
     // Join user to 'MainRoom'
     socket.join(conf.mainroom);
-    logger.emit('newEvent', 'userJoinsRoom', {'socket':socket.id, 'room':conf.mainroom});
+    logger.emit('newEvent', 'userJoinsRoom', {'socket':socket.id, 'room':conf.mainroom, 'client_address': socket.request.connection.remoteAddress, 'client_port': socket.request.connection.remotePort});
     // Confirm subscription to user
     socket.emit('subscriptionConfirmed', {'room':conf.mainroom});
     // Notify subscription to all users in room
@@ -132,7 +132,7 @@ io.sockets.on('connection', function(socket) {
             _.each(data.rooms, function(room) {
                 room = room.replace(" ","");
                 socket.join(room);
-                logger.emit('newEvent', 'userJoinsRoom', {'socket':socket.id, 'username':username, 'room':room});
+                logger.emit('newEvent', 'userJoinsRoom', {'socket':socket.id, 'username':username, 'room':room, 'client_address': socket.request.connection.remoteAddress, 'client_port': socket.request.connection.remotePort});
 
                 // Confirm subscription to user
                 socket.emit('subscriptionConfirmed', {'room': room});
@@ -153,7 +153,7 @@ io.sockets.on('connection', function(socket) {
             _.each(data.rooms, function(room) {
                 if (room != conf.mainroom) {
                     socket.leave(room);
-                    logger.emit('newEvent', 'userLeavesRoom', {'socket':socket.id, 'username':username, 'room':room});
+                    logger.emit('newEvent', 'userLeavesRoom', {'socket':socket.id, 'username':username, 'room':room, 'client_address': socket.request.connection.remoteAddress, 'client_port': socket.request.connection.remotePort});
                 
                     // Confirm unsubscription to user
                     socket.emit('unsubscriptionConfirmed', {'room': room});
@@ -169,7 +169,7 @@ io.sockets.on('connection', function(socket) {
     // User wants to know what rooms he has joined
     socket.on('getRooms', function(data) {
         socket.emit('roomsReceived', socket.rooms);
-        logger.emit('newEvent', 'userGetsRooms', {'socket':socket.id});
+        logger.emit('newEvent', 'userGetsRooms', {'socket':socket.id, 'client_address': socket.request.connection.remoteAddress, 'client_port': socket.request.connection.remotePort});
     });
 
     // Get users in given room
@@ -194,7 +194,7 @@ io.sockets.on('connection', function(socket) {
 
             // Store user data in db
             db.hset([socket.id, 'username', data.username], redis.print);
-            logger.emit('newEvent', 'userSetsNickname', {'socket':socket.id, 'oldUsername':username, 'newUsername':data.username});
+            logger.emit('newEvent', 'userSetsNickname', {'socket':socket.id, 'oldUsername':username, 'newUsername':data.username, 'client_address': socket.request.connection.remoteAddress, 'client_port': socket.request.connection.remotePort});
 
             // Notify all users who belong to the same rooms that this one
             _.each(socket.rooms, function(room) {
@@ -229,7 +229,7 @@ io.sockets.on('connection', function(socket) {
         // Get user info from db
         db.hgetall(socket.id, function(err, obj) {
             if (err) return logger.emit('newEvent', 'error', err);
-            logger.emit('newEvent', 'userDisconnected', {'socket':socket.id, 'username':obj.username});
+            logger.emit('newEvent', 'userDisconnected', {'socket':socket.id, 'username':obj.username, 'client_address': socket.request.connection.remoteAddress, 'client_port': socket.request.connection.remotePort});
 
             // Notify all users who belong to the same rooms that this one
             _.each(rooms, function(room) {
