@@ -46,7 +46,7 @@ var logger = new events.EventEmitter();
 logger.on('newEvent', function(event, data) {
     // Console log
     var date = new Date();
-    data["time"] = date.toISOString()
+    data["time"] = date.toISOString() + " UTC"
     data["event"] = event
     outstr = JSON.stringify(data);
     console.log('%s', outstr);
