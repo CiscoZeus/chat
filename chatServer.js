@@ -6,8 +6,8 @@
 // General
 // ***************************************************************************
 
-var conf = { 
-    port: 8888,
+var conf = {
+    port: 8889,
     debug: false,
     dbPort: 6379,
     dbHost: '127.0.0.1',
@@ -21,7 +21,9 @@ var express = require('express'),
     events = require('events'),
     _ = require('underscore'),
     sanitize = require('validator').sanitize;
-
+var fs = require('fs');
+var util = require('util');
+var log_file = fs.createWriteStream('/var/log/chatserver.log', {flags : 'w'});
 // HTTP Server configuration & launch
 var app = express(),
     server = http.createServer(app);
@@ -43,9 +45,12 @@ var db = require('redis').createClient(conf.dbPort,conf.dbHost);
 var logger = new events.EventEmitter();
 logger.on('newEvent', function(event, data) {
     // Console log
-    console.log('%s: %s', event, JSON.stringify(data));
-    // Persistent log storage too?
-    // TODO
+    var date = new Date();
+    data["time"] = date.toISOString()
+    data["event"] = event
+    outstr = JSON.stringify(data);
+    console.log('%s', outstr);
+    log_file.write(outstr + '\n');
 });
 
 // ***************************************************************************
