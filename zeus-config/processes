@@ -60,32 +60,34 @@ root       951     1  0 Oct05 ?        00:00:00 cron
 daemon     952     1  0 Oct05 ?        00:00:00 atd
 root      1035     2  0 Oct05 ?        00:00:00 [kauditd]
 root      1041     1  0 Oct05 ?        00:00:03 /usr/sbin/apache2 -k start
-root      1191     1  0 Oct05 ?        00:00:13 /usr/bin/python /usr/bin/fail2ban-server -b -s /var/run/fail2ban/fail2ban.sock -p /var/run/fail2ban/fail2ban.pid
+root      1191     1  0 Oct05 ?        00:00:14 /usr/bin/python /usr/bin/fail2ban-server -b -s /var/run/fail2ban/fail2ban.sock -p /var/run/fail2ban/fail2ban.pid
 root      1244     1  0 Oct05 tty1     00:00:00 /sbin/getty -8 38400 tty1
 root      1275     2  0 Oct05 ?        00:00:00 [kworker/u3:1]
 root     14364     1  0 Oct05 ?        00:00:00 /usr/sbin/collectdmon -P /var/run/collectd.pid -- -C /etc/collectd/collectd.conf
-root     14366 14364  0 Oct05 ?        00:02:49 collectd -C /etc/collectd/collectd.conf -f
+root     14366 14364  0 Oct05 ?        00:02:56 collectd -C /etc/collectd/collectd.conf -f
 syslog   14469     1  0 Oct05 ?        00:00:01 rsyslogd
-snmp     18602     1  0 Oct05 ?        00:00:09 /usr/sbin/snmpd -Lsd -Lf /dev/null -u snmp -g snmp -I -smux mteTrigger mteTriggerConf -p /var/run/snmpd.pid
+snmp     18602     1  0 Oct05 ?        00:00:10 /usr/sbin/snmpd -Lsd -Lf /dev/null -u snmp -g snmp -I -smux mteTrigger mteTriggerConf -p /var/run/snmpd.pid
 root     21068     1  0 Oct05 ?        00:00:00 nfcapd -w -D -p 23456 -B 200000 -S 1 -z -I chatserver-eth0 -l /tmp/nfcapd/
 root     22664   946  0 Oct05 ?        00:00:00 sshd: manojs [priv] 
 manojs   22735 22664  0 Oct05 ?        00:00:00 sshd: manojs@pts/0  
 manojs   22736 22735  0 Oct05 pts/0    00:00:00 -bash
-td-agent 22908     1  0 Oct05 ?        00:00:00 /opt/td-agent/embedded/bin/ruby /usr/sbin/td-agent --log /var/log/td-agent/td-agent.log --daemon /var/run/td-agent/td-agent.pid
-td-agent 22911 22908  2 Oct05 ?        00:01:10 /opt/td-agent/embedded/bin/ruby /usr/sbin/td-agent --log /var/log/td-agent/td-agent.log --daemon /var/run/td-agent/td-agent.pid
 root     23364   946  0 00:20 ?        00:00:00 sshd: manojs [priv] 
 manojs   23412 23364  0 00:20 ?        00:00:00 sshd: manojs@pts/3  
 manojs   23413 23412  0 00:20 pts/3    00:00:00 -bash
 root     23437 23413  0 00:20 pts/3    00:00:00 sudo su -
 root     23438 23437  0 00:20 pts/3    00:00:00 su -
 root     23439 23438  0 00:20 pts/3    00:00:00 -su
-root     23532     1  0 00:22 ?        00:00:00 pmacctd: Core Process [default] 
+root     23532     1  0 00:22 ?        00:00:01 pmacctd: Core Process [default] 
 root     23533 23532  0 00:22 ?        00:00:00 pmacctd: IMT Plugin [default]   
 root     23548 22736  0 00:24 pts/0    00:00:00 sudo su -
 root     23549 23548  0 00:24 pts/0    00:00:00 su -
 root     23550 23549  0 00:24 pts/0    00:00:00 -su
-root     23620 23550  0 00:27 pts/0    00:00:00 ps -ef
-www-data 26938  1041  0 Oct05 ?        00:00:13 /usr/sbin/apache2 -k start
-www-data 26940  1041  0 Oct05 ?        00:00:12 /usr/sbin/apache2 -k start
-redis    27454     1  0 Oct05 ?        00:00:21 /usr/bin/redis-server 127.0.0.1:6379       
-root     27467     1  0 Oct05 ?        00:00:20 redis-server *:6379
+root     23898 23439  0 00:45 pts/3    00:00:00 /bin/sh /root/chat/zeus-config/pmacct_collect.sh
+td-agent 24812     1  0 01:01 ?        00:00:00 /opt/td-agent/embedded/bin/ruby /usr/sbin/td-agent --log /var/log/td-agent/td-agent.log --daemon /var/run/td-agent/td-agent.pid
+td-agent 24815 24812  4 01:01 ?        00:00:19 /opt/td-agent/embedded/bin/ruby /usr/sbin/td-agent --log /var/log/td-agent/td-agent.log --daemon /var/run/td-agent/td-agent.pid
+root     24999 23898  0 01:09 pts/3    00:00:00 sleep 30
+root     25008 23550  0 01:09 pts/0    00:00:00 ps -ef
+www-data 26938  1041  0 Oct05 ?        00:00:14 /usr/sbin/apache2 -k start
+www-data 26940  1041  0 Oct05 ?        00:00:13 /usr/sbin/apache2 -k start
+redis    27454     1  0 Oct05 ?        00:00:22 /usr/bin/redis-server 127.0.0.1:6379       
+root     27467     1  0 Oct05 ?        00:00:21 redis-server *:6379
