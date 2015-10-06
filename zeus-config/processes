@@ -1,0 +1,91 @@
+UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 Oct05 ?        00:00:02 /sbin/init
+root         2     0  0 Oct05 ?        00:00:00 [kthreadd]
+root         3     2  0 Oct05 ?        00:00:00 [ksoftirqd/0]
+root         5     2  0 Oct05 ?        00:00:00 [kworker/0:0H]
+root         6     2  0 Oct05 ?        00:00:00 [kworker/u2:0]
+root         7     2  0 Oct05 ?        00:00:07 [rcu_sched]
+root         8     2  0 Oct05 ?        00:00:10 [rcuos/0]
+root         9     2  0 Oct05 ?        00:00:00 [rcu_bh]
+root        10     2  0 Oct05 ?        00:00:00 [rcuob/0]
+root        11     2  0 Oct05 ?        00:00:00 [migration/0]
+root        12     2  0 Oct05 ?        00:00:00 [watchdog/0]
+root        13     2  0 Oct05 ?        00:00:00 [khelper]
+root        14     2  0 Oct05 ?        00:00:00 [kdevtmpfs]
+root        15     2  0 Oct05 ?        00:00:00 [netns]
+root        16     2  0 Oct05 ?        00:00:00 [writeback]
+root        17     2  0 Oct05 ?        00:00:00 [kintegrityd]
+root        18     2  0 Oct05 ?        00:00:00 [bioset]
+root        19     2  0 Oct05 ?        00:00:00 [kworker/u3:0]
+root        20     2  0 Oct05 ?        00:00:00 [kblockd]
+root        21     2  0 Oct05 ?        00:00:00 [ata_sff]
+root        22     2  0 Oct05 ?        00:00:00 [khubd]
+root        23     2  0 Oct05 ?        00:00:00 [md]
+root        24     2  0 Oct05 ?        00:00:00 [devfreq_wq]
+root        25     2  0 Oct05 ?        00:00:03 [kworker/0:1]
+root        27     2  0 Oct05 ?        00:00:00 [khungtaskd]
+root        28     2  0 Oct05 ?        00:00:03 [kswapd0]
+root        29     2  0 Oct05 ?        00:00:00 [ksmd]
+root        30     2  0 Oct05 ?        00:00:00 [fsnotify_mark]
+root        31     2  0 Oct05 ?        00:00:00 [ecryptfs-kthrea]
+root        32     2  0 Oct05 ?        00:00:00 [crypto]
+root        44     2  0 Oct05 ?        00:00:00 [kthrotld]
+root        45     2  0 Oct05 ?        00:00:11 [kworker/u2:1]
+root        46     2  0 Oct05 ?        00:00:00 [vballoon]
+root        47     2  0 Oct05 ?        00:00:00 [scsi_eh_0]
+root        48     2  0 Oct05 ?        00:00:00 [scsi_eh_1]
+root        68     2  0 Oct05 ?        00:00:00 [deferwq]
+root        69     2  0 Oct05 ?        00:00:00 [charger_manager]
+root       116     2  0 Oct05 ?        00:00:00 [kpsmoused]
+root       123     2  0 Oct05 ?        00:00:03 [jbd2/vda1-8]
+root       124     2  0 Oct05 ?        00:00:00 [ext4-rsv-conver]
+root       138     2  0 Oct05 ?        00:00:00 [kworker/0:2]
+root       330     1  0 Oct05 ?        00:00:00 upstart-udev-bridge --daemon
+root       342     1  0 Oct05 ?        00:00:00 /lib/systemd/systemd-udevd --daemon
+root       562     2  0 Oct05 ?        00:00:00 [ttm_swap]
+root       618     1  0 Oct05 ?        00:00:09 nodejs chatServer.js
+root       638     2  0 Oct05 ?        00:00:00 [kvm-irqfd-clean]
+root       701     1  0 Oct05 ?        00:00:00 upstart-socket-bridge --daemon
+message+   778     1  0 Oct05 ?        00:00:00 dbus-daemon --system --fork
+root       834     1  0 Oct05 ?        00:00:00 /lib/systemd/systemd-logind
+root       874     1  0 Oct05 ?        00:00:00 upstart-file-bridge --daemon
+root       911     1  0 Oct05 tty4     00:00:00 /sbin/getty -8 38400 tty4
+root       914     1  0 Oct05 tty5     00:00:00 /sbin/getty -8 38400 tty5
+root       919     1  0 Oct05 tty2     00:00:00 /sbin/getty -8 38400 tty2
+root       920     1  0 Oct05 tty3     00:00:00 /sbin/getty -8 38400 tty3
+root       922     1  0 Oct05 tty6     00:00:00 /sbin/getty -8 38400 tty6
+root       946     1  0 Oct05 ?        00:00:00 /usr/sbin/sshd -D
+root       949     1  0 Oct05 ?        00:00:00 acpid -c /etc/acpi/events -s /var/run/acpid.socket
+root       951     1  0 Oct05 ?        00:00:00 cron
+daemon     952     1  0 Oct05 ?        00:00:00 atd
+root      1035     2  0 Oct05 ?        00:00:00 [kauditd]
+root      1041     1  0 Oct05 ?        00:00:03 /usr/sbin/apache2 -k start
+root      1191     1  0 Oct05 ?        00:00:13 /usr/bin/python /usr/bin/fail2ban-server -b -s /var/run/fail2ban/fail2ban.sock -p /var/run/fail2ban/fail2ban.pid
+root      1244     1  0 Oct05 tty1     00:00:00 /sbin/getty -8 38400 tty1
+root      1275     2  0 Oct05 ?        00:00:00 [kworker/u3:1]
+root     14364     1  0 Oct05 ?        00:00:00 /usr/sbin/collectdmon -P /var/run/collectd.pid -- -C /etc/collectd/collectd.conf
+root     14366 14364  0 Oct05 ?        00:02:49 collectd -C /etc/collectd/collectd.conf -f
+syslog   14469     1  0 Oct05 ?        00:00:01 rsyslogd
+snmp     18602     1  0 Oct05 ?        00:00:09 /usr/sbin/snmpd -Lsd -Lf /dev/null -u snmp -g snmp -I -smux mteTrigger mteTriggerConf -p /var/run/snmpd.pid
+root     21068     1  0 Oct05 ?        00:00:00 nfcapd -w -D -p 23456 -B 200000 -S 1 -z -I chatserver-eth0 -l /tmp/nfcapd/
+root     22664   946  0 Oct05 ?        00:00:00 sshd: manojs [priv] 
+manojs   22735 22664  0 Oct05 ?        00:00:00 sshd: manojs@pts/0  
+manojs   22736 22735  0 Oct05 pts/0    00:00:00 -bash
+td-agent 22908     1  0 Oct05 ?        00:00:00 /opt/td-agent/embedded/bin/ruby /usr/sbin/td-agent --log /var/log/td-agent/td-agent.log --daemon /var/run/td-agent/td-agent.pid
+td-agent 22911 22908  2 Oct05 ?        00:01:10 /opt/td-agent/embedded/bin/ruby /usr/sbin/td-agent --log /var/log/td-agent/td-agent.log --daemon /var/run/td-agent/td-agent.pid
+root     23364   946  0 00:20 ?        00:00:00 sshd: manojs [priv] 
+manojs   23412 23364  0 00:20 ?        00:00:00 sshd: manojs@pts/3  
+manojs   23413 23412  0 00:20 pts/3    00:00:00 -bash
+root     23437 23413  0 00:20 pts/3    00:00:00 sudo su -
+root     23438 23437  0 00:20 pts/3    00:00:00 su -
+root     23439 23438  0 00:20 pts/3    00:00:00 -su
+root     23532     1  0 00:22 ?        00:00:00 pmacctd: Core Process [default] 
+root     23533 23532  0 00:22 ?        00:00:00 pmacctd: IMT Plugin [default]   
+root     23548 22736  0 00:24 pts/0    00:00:00 sudo su -
+root     23549 23548  0 00:24 pts/0    00:00:00 su -
+root     23550 23549  0 00:24 pts/0    00:00:00 -su
+root     23620 23550  0 00:27 pts/0    00:00:00 ps -ef
+www-data 26938  1041  0 Oct05 ?        00:00:13 /usr/sbin/apache2 -k start
+www-data 26940  1041  0 Oct05 ?        00:00:12 /usr/sbin/apache2 -k start
+redis    27454     1  0 Oct05 ?        00:00:21 /usr/bin/redis-server 127.0.0.1:6379       
+root     27467     1  0 Oct05 ?        00:00:20 redis-server *:6379
