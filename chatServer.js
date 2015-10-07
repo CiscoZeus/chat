@@ -28,7 +28,8 @@ var log_file = fs.createWriteStream('/var/log/chatserver.log', {flags : 'w'});
 var app = express(),
     server = http.createServer(app);
     server.listen(conf.port);
-
+var totalUsers = 0;
+var totalRooms = 0;
 // Express app configuration
 app.configure(function() {
     app.use(express.bodyParser());
@@ -81,7 +82,7 @@ var sendBroadcast = function(text) {
             io.to(room).emit('newMessage', message);
         }
     });
-    logger.emit('newEvent', 'newBroadcastMessage', {'msg':text});
+    logger.emit('newEvent', 'newBroadcastMessage', {'room':room, 'username':'ServerBot', 'msg':text});
 };
 
 // ***************************************************************************
@@ -107,7 +108,8 @@ io.sockets.on('connection', function(socket) {
 
     // Welcome message on connection
     socket.emit('connected', 'Welcome to the chat server');
-    logger.emit('newEvent', 'userConnected', {'socket':socket.id, 'client_address': socket.request.connection.remoteAddress, 'client_port': socket.request.connection.remotePort});
+    totalUsers += 1;
+    logger.emit('newEvent', 'userConnected', {'socket':socket.id, 'client_address': socket.request.connection.remoteAddress, 'client_port': socket.request.connection.remotePort, 'totalUsers': totalUsers});
 
     // Store user data in db
     db.hset([socket.id, 'connectionDate', new Date()], redis.print);
@@ -132,7 +134,7 @@ io.sockets.on('connection', function(socket) {
             _.each(data.rooms, function(room) {
                 room = room.replace(" ","");
                 socket.join(room);
-                logger.emit('newEvent', 'userJoinsRoom', {'socket':socket.id, 'username':username, 'room':room, 'client_address': socket.request.connection.remoteAddress, 'client_port': socket.request.connection.remotePort});
+                logger.emit('newEvent', 'userJoinsRoom', {'socket':socket.id, 'username':username, 'room':room, 'client_address': socket.request.connection.remoteAddress, 'client_port': socket.request.connection.remotePort, 'totalRooms': data.rooms.length});
 
                 // Confirm subscription to user
                 socket.emit('subscriptionConfirmed', {'room': room});
@@ -153,7 +155,7 @@ io.sockets.on('connection', function(socket) {
             _.each(data.rooms, function(room) {
                 if (room != conf.mainroom) {
                     socket.leave(room);
-                    logger.emit('newEvent', 'userLeavesRoom', {'socket':socket.id, 'username':username, 'room':room, 'client_address': socket.request.connection.remoteAddress, 'client_port': socket.request.connection.remotePort});
+                    logger.emit('newEvent', 'userLeavesRoom', {'socket':socket.id, 'username':username, 'room':room, 'client_address': socket.request.connection.remoteAddress, 'client_port': socket.request.connection.remotePort, 'totalRooms': data.rooms.length});
                 
                     // Confirm unsubscription to user
                     socket.emit('unsubscriptionConfirmed', {'room': room});
@@ -229,7 +231,8 @@ io.sockets.on('connection', function(socket) {
         // Get user info from db
         db.hgetall(socket.id, function(err, obj) {
             if (err) return logger.emit('newEvent', 'error', err);
-            logger.emit('newEvent', 'userDisconnected', {'socket':socket.id, 'username':obj.username, 'client_address': socket.request.connection.remoteAddress, 'client_port': socket.request.connection.remotePort});
+            totalUsers -= 1;
+            logger.emit('newEvent', 'userDisconnected', {'socket':socket.id, 'username':obj.username, 'client_address': socket.request.connection.remoteAddress, 'client_port': socket.request.connection.remotePort, 'totalUsers': totalUsers});
 
             // Notify all users who belong to the same rooms that this one
             _.each(rooms, function(room) {
