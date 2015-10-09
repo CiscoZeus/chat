@@ -6,7 +6,7 @@ rooms = ['america', 'africa', 'asia', 'europe', 'antarctica', 'australia']
 users = ['user1', 'user2', 'user3', 'user4']
 with open("random_sentences.txt") as f:
     content = f.readlines()
-t = random.randint(1,4)
+t = random.randint(2,7)
 with Browser() as browser:
     # Visit URL
     url = "chat.ciscozeus.io:8889"
