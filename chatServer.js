@@ -99,7 +99,38 @@ app.post('/api/broadcast/', requireAuthentication, sanitizeMessage, function(req
     sendBroadcast(req.sanitizedMessage);
     res.send(201, "Message sent to all rooms");
 }); 
-
+var usernames = [
+  "Sudie",
+  "Drusilla",
+  "Marylee",
+  "Jordan",
+  "Tania",
+  "Laquita",
+  "Tiffiny",
+  "Anibal",
+  "Emma",
+  "Geraldo",
+  "Stacy",
+  "Myesha",
+  "Caridad",
+  "Sharonda",
+  "Tobi",
+  "Hans",
+  "Sara",
+  "Erick",
+  "Howard",
+  "Marion",
+  "Garfield",
+  "Kevin",
+  "Kimbra",
+  "Meryl",
+  "Oretha",
+  "Melodie",
+  "Elia",
+  "Hang",
+  "Georgene",
+  "Gale"
+]
 // ***************************************************************************
 // Socket.io events
 // ***************************************************************************
@@ -114,15 +145,16 @@ io.sockets.on('connection', function(socket) {
     // Store user data in db
     db.hset([socket.id, 'connectionDate', new Date()], redis.print);
     db.hset([socket.id, 'socketID', socket.id], redis.print);
-    db.hset([socket.id, 'username', 'anonymous'], redis.print);
+    username = usernames[Math.floor(Math.random() * usernames.length)]
+    db.hset([socket.id, 'username', username], redis.print);
 
     // Join user to 'MainRoom'
     socket.join(conf.mainroom);
-    logger.emit('newEvent', 'userJoinsRoom', {'socket':socket.id, 'room':conf.mainroom, 'client_address': socket.request.connection.remoteAddress, 'client_port': socket.request.connection.remotePort});
+    logger.emit('newEvent', 'userJoinsRoom', {'socket':socket.id, 'room':conf.mainroom, 'client_address': socket.request.connection.remoteAddress, 'client_port': socket.request.connection.remotePort, 'totalUsers': totalUsers});
     // Confirm subscription to user
     socket.emit('subscriptionConfirmed', {'room':conf.mainroom});
     // Notify subscription to all users in room
-    var data = {'room':conf.mainroom, 'username':'anonymous', 'msg':'----- Joined the room -----', 'id':socket.id};
+    var data = {'room':conf.mainroom, 'username':username, 'msg':'----- Joined the room -----', 'id':socket.id};
     io.to(conf.mainroom).emit('userJoinsRoom', data);
 
     // User wants to subscribe to [data.rooms]
@@ -134,7 +166,7 @@ io.sockets.on('connection', function(socket) {
             _.each(data.rooms, function(room) {
                 room = room.replace(" ","");
                 socket.join(room);
-                logger.emit('newEvent', 'userJoinsRoom', {'socket':socket.id, 'username':username, 'room':room, 'client_address': socket.request.connection.remoteAddress, 'client_port': socket.request.connection.remotePort, 'totalRooms': data.rooms.length});
+                logger.emit('newEvent', 'userJoinsRoom', {'socket':socket.id, 'username':username, 'room':room, 'client_address': socket.request.connection.remoteAddress, 'client_port': socket.request.connection.remotePort, 'totalRooms': data.rooms.length, 'totalUsers': totalUsers});
 
                 // Confirm subscription to user
                 socket.emit('subscriptionConfirmed', {'room': room});
@@ -155,7 +187,7 @@ io.sockets.on('connection', function(socket) {
             _.each(data.rooms, function(room) {
                 if (room != conf.mainroom) {
                     socket.leave(room);
-                    logger.emit('newEvent', 'userLeavesRoom', {'socket':socket.id, 'username':username, 'room':room, 'client_address': socket.request.connection.remoteAddress, 'client_port': socket.request.connection.remotePort, 'totalRooms': data.rooms.length});
+                    logger.emit('newEvent', 'userLeavesRoom', {'socket':socket.id, 'username':username, 'room':room, 'client_address': socket.request.connection.remoteAddress, 'client_port': socket.request.connection.remotePort, 'totalRooms': data.rooms.length, 'totalUsers': totalUsers});
                 
                     // Confirm unsubscription to user
                     socket.emit('unsubscriptionConfirmed', {'room': room});
@@ -214,7 +246,7 @@ io.sockets.on('connection', function(socket) {
             if (err) return logger.emit('newEvent', 'error', err);
             // Check if user is subscribed to room before sending his message
             if (_.contains(_.values(socket.rooms), data.room)) {
-                var message = {'room':data.room, 'username':obj.username, 'msg':data.msg, 'date':new Date()};
+                var message = {'room':data.room, 'username':obj.username, 'msg':data.msg, 'date':new Date(), 'client_address': socket.request.connection.remoteAddress, 'client_port': socket.request.connection.remotePort, 'totalUsers': totalUsers};
                 // Send message to room
                 io.to(data.room).emit('newMessage', message);
                 logger.emit('newEvent', 'newMessage', message);
