@@ -11,7 +11,7 @@ with Browser() as browser:
     # Visit URL
     url = "chat.ciscozeus.io:8889"
     browser.visit(url)
-    while True:
+    for iter in xrange(0,15):
       try:
         browser.find_by_id('message_text').fill(random.choice(content))
       except:
