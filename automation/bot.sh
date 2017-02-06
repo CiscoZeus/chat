@@ -1,5 +1,5 @@
 while true
 do
-python bot.py
-sleep `rand -M 100`
+python chat_bot.py
+sleep 2
 done
